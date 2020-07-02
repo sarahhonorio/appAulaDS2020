@@ -1,5 +1,3 @@
-import * as dom from '../utils/dom/index.js'
-
 // private global state for the queue feature
 let currentSteps = []
 
@@ -12,10 +10,11 @@ export const queue = function (steps) {
 
   const resetAndResolve = (resolve, value) => {
     currentSteps = []
+    document.body.removeAttribute('data-swal2-queue-step')
     resolve(value)
   }
 
-  const queueResult = []
+  let queueResult = []
   return new Promise((resolve) => {
     (function step (i, callback) {
       if (i < currentSteps.length) {
@@ -38,7 +37,7 @@ export const queue = function (steps) {
 /*
  * Global function for getting the index of current popup in queue
  */
-export const getQueueStep = () => dom.getContainer() && dom.getContainer().getAttribute('data-queue-step')
+export const getQueueStep = () => document.body.getAttribute('data-swal2-queue-step')
 
 /*
  * Global function for inserting a popup to the queue

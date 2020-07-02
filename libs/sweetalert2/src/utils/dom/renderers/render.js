@@ -1,4 +1,3 @@
-import { getPopup } from '../getters.js'
 import { renderActions } from './renderActions.js'
 import { renderContainer } from './renderContainer.js'
 import { renderContent } from './renderContent.js'
@@ -14,8 +13,4 @@ export const render = (instance, params) => {
   renderContent(instance, params)
   renderActions(instance, params)
   renderFooter(instance, params)
-
-  if (typeof params.onRender === 'function') {
-    params.onRender(getPopup())
-  }
 }

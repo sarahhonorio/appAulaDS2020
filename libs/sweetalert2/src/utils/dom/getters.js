@@ -2,7 +2,7 @@ import { swalClasses } from '../classes.js'
 import { uniqueArray, toArray } from '../utils.js'
 import { isVisible } from './domUtils.js'
 
-export const getContainer = () => document.body.querySelector(`.${swalClasses.container}`)
+export const getContainer = () => document.body.querySelector('.' + swalClasses.container)
 
 export const elementBySelector = (selectorString) => {
   const container = getContainer()
@@ -10,14 +10,14 @@ export const elementBySelector = (selectorString) => {
 }
 
 const elementByClass = (className) => {
-  return elementBySelector(`.${className}`)
+  return elementBySelector('.' + className)
 }
 
 export const getPopup = () => elementByClass(swalClasses.popup)
 
 export const getIcons = () => {
   const popup = getPopup()
-  return toArray(popup.querySelectorAll(`.${swalClasses.icon}`))
+  return toArray(popup.querySelectorAll('.' + swalClasses.icon))
 }
 
 export const getIcon = () => {
@@ -29,17 +29,15 @@ export const getTitle = () => elementByClass(swalClasses.title)
 
 export const getContent = () => elementByClass(swalClasses.content)
 
-export const getHtmlContainer = () => elementByClass(swalClasses['html-container'])
-
 export const getImage = () => elementByClass(swalClasses.image)
 
 export const getProgressSteps = () => elementByClass(swalClasses['progress-steps'])
 
 export const getValidationMessage = () => elementByClass(swalClasses['validation-message'])
 
-export const getConfirmButton = () => elementBySelector(`.${swalClasses.actions} .${swalClasses.confirm}`)
+export const getConfirmButton = () => elementBySelector('.' + swalClasses.actions + ' .' + swalClasses.confirm)
 
-export const getCancelButton = () => elementBySelector(`.${swalClasses.actions} .${swalClasses.cancel}`)
+export const getCancelButton = () => elementBySelector('.' + swalClasses.actions + ' .' + swalClasses.cancel)
 
 export const getActions = () => elementByClass(swalClasses.actions)
 
@@ -47,27 +45,7 @@ export const getHeader = () => elementByClass(swalClasses.header)
 
 export const getFooter = () => elementByClass(swalClasses.footer)
 
-export const getTimerProgressBar = () => elementByClass(swalClasses['timer-progress-bar'])
-
 export const getCloseButton = () => elementByClass(swalClasses.close)
-
-// https://github.com/jkup/focusable/blob/master/index.js
-const focusable = `
-  a[href],
-  area[href],
-  input:not([disabled]),
-  select:not([disabled]),
-  textarea:not([disabled]),
-  button:not([disabled]),
-  iframe,
-  object,
-  embed,
-  [tabindex="0"],
-  [contenteditable],
-  audio[controls],
-  video[controls],
-  summary
-`
 
 export const getFocusableElements = () => {
   const focusableElementsWithTabindex = toArray(
@@ -85,8 +63,9 @@ export const getFocusableElements = () => {
       return 0
     })
 
+  // https://github.com/jkup/focusable/blob/master/index.js
   const otherFocusableElements = toArray(
-    getPopup().querySelectorAll(focusable)
+    getPopup().querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable], audio[controls], video[controls]')
   ).filter(el => el.getAttribute('tabindex') !== '-1')
 
   return uniqueArray(focusableElementsWithTabindex.concat(otherFocusableElements)).filter(el => isVisible(el))

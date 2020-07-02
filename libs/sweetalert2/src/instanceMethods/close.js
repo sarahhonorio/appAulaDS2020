@@ -7,23 +7,27 @@ import { swalClasses } from '../utils/classes.js'
 import globalState, { restoreActiveElement } from '../globalState.js'
 import privateProps from '../privateProps.js'
 import privateMethods from '../privateMethods.js'
-
 /*
  * Instance method to close sweetAlert
  */
 
-function removePopupAndResetState (instance, container, isToast, onAfterClose) {
+function removePopupAndResetState (container, isToast, onAfterClose) {
   if (isToast) {
-    triggerOnAfterCloseAndDispose(instance, onAfterClose)
+    triggerOnAfterClose(onAfterClose)
   } else {
-    restoreActiveElement().then(() => triggerOnAfterCloseAndDispose(instance, onAfterClose))
+    restoreActiveElement().then(() => triggerOnAfterClose(onAfterClose))
     globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, { capture: globalState.keydownListenerCapture })
     globalState.keydownHandlerAdded = false
   }
 
-  if (container.parentNode && !document.body.getAttribute('data-swal2-queue-step')) {
+  // Unset globalState props so GC will dispose globalState (#1569)
+  delete globalState.keydownHandler
+  delete globalState.keydownTarget
+
+  if (container.parentNode) {
     container.parentNode.removeChild(container)
   }
+  removeBodyClasses()
 
   if (dom.isModal()) {
     undoScrollbar()
@@ -31,8 +35,6 @@ function removePopupAndResetState (instance, container, isToast, onAfterClose) {
     undoIEfix()
     unsetAriaHidden()
   }
-
-  removeBodyClasses()
 }
 
 function removeBodyClasses () {
@@ -48,68 +50,67 @@ function removeBodyClasses () {
   )
 }
 
+function swalCloseEventFinished (popup, container, isToast, onAfterClose) {
+  if (dom.hasClass(popup, swalClasses.hide)) {
+    removePopupAndResetState(container, isToast, onAfterClose)
+  }
+
+  // Unset WeakMaps so GC will be able to dispose them (#1569)
+  unsetWeakMaps(privateProps)
+  unsetWeakMaps(privateMethods)
+}
+
 export function close (resolveValue) {
+  const container = dom.getContainer()
   const popup = dom.getPopup()
 
-  if (!popup) {
+  if (!popup || dom.hasClass(popup, swalClasses.hide)) {
     return
   }
 
   const innerParams = privateProps.innerParams.get(this)
-  if (!innerParams || dom.hasClass(popup, innerParams.hideClass.popup)) {
-    return
-  }
   const swalPromiseResolve = privateMethods.swalPromiseResolve.get(this)
+  const onClose = innerParams.onClose
+  const onAfterClose = innerParams.onAfterClose
 
-  dom.removeClass(popup, innerParams.showClass.popup)
-  dom.addClass(popup, innerParams.hideClass.popup)
+  dom.removeClass(popup, swalClasses.show)
+  dom.addClass(popup, swalClasses.hide)
 
-  const backdrop = dom.getContainer()
-  dom.removeClass(backdrop, innerParams.showClass.backdrop)
-  dom.addClass(backdrop, innerParams.hideClass.backdrop)
-
-  handlePopupAnimation(this, popup, innerParams)
-
-  // Resolve Swal promise
-  swalPromiseResolve(resolveValue || {})
-}
-
-const handlePopupAnimation = (instance, popup, innerParams) => {
-  const container = dom.getContainer()
   // If animation is supported, animate
-  const animationIsSupported = dom.animationEndEvent && dom.hasCssAnimation(popup)
-
-  const { onClose, onAfterClose } = innerParams
+  if (dom.animationEndEvent && dom.hasCssAnimation(popup)) {
+    popup.addEventListener(dom.animationEndEvent, function (e) {
+      if (e.target === popup) {
+        swalCloseEventFinished(popup, container, dom.isToast(), onAfterClose)
+      }
+    })
+  } else {
+    // Otherwise, remove immediately
+    removePopupAndResetState(container, dom.isToast(), onAfterClose)
+  }
 
   if (onClose !== null && typeof onClose === 'function') {
     onClose(popup)
   }
 
-  if (animationIsSupported) {
-    animatePopup(instance, popup, container, onAfterClose)
-  } else {
-    // Otherwise, remove immediately
-    removePopupAndResetState(instance, container, dom.isToast(), onAfterClose)
+  // Resolve Swal promise
+  swalPromiseResolve(resolveValue || {})
+
+  // Unset this.params so GC will dispose it (#1569)
+  delete this.params
+}
+
+const unsetWeakMaps = (obj) => {
+  for (const i in obj) {
+    obj[i] = new WeakMap()
   }
 }
 
-const animatePopup = (instance, popup, container, onAfterClose) => {
-  globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, dom.isToast(), onAfterClose)
-  popup.addEventListener(dom.animationEndEvent, function (e) {
-    if (e.target === popup) {
-      globalState.swalCloseEventFinishedCallback()
-      delete globalState.swalCloseEventFinishedCallback
-    }
-  })
-}
-
-const triggerOnAfterCloseAndDispose = (instance, onAfterClose) => {
-  setTimeout(() => {
-    if (typeof onAfterClose === 'function') {
+const triggerOnAfterClose = (onAfterClose) => {
+  if (onAfterClose !== null && typeof onAfterClose === 'function') {
+    setTimeout(() => {
       onAfterClose()
-    }
-    instance._destroy()
-  })
+    })
+  }
 }
 
 export {

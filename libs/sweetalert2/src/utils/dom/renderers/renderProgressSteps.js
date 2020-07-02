@@ -1,17 +1,17 @@
 import { swalClasses } from '../../classes.js'
 import { warn } from '../../utils.js'
 import * as dom from '../../dom/index.js'
-import { getQueueStep } from '../../../staticMethods/queue.js'
+import sweetAlert from '../../../sweetalert2.js'
 
 const createStepElement = (step) => {
   const stepEl = document.createElement('li')
   dom.addClass(stepEl, swalClasses['progress-step'])
-  dom.setInnerHtml(stepEl, step)
+  stepEl.innerHTML = step
   return stepEl
 }
 
 const createLineElement = (params) => {
-  const lineEl = document.createElement('li')
+  let lineEl = document.createElement('li')
   dom.addClass(lineEl, swalClasses['progress-step-line'])
   if (params.progressStepsDistance) {
     lineEl.style.width = params.progressStepsDistance
@@ -20,14 +20,14 @@ const createLineElement = (params) => {
 }
 
 export const renderProgressSteps = (instance, params) => {
-  const progressStepsContainer = dom.getProgressSteps()
+  let progressStepsContainer = dom.getProgressSteps()
   if (!params.progressSteps || params.progressSteps.length === 0) {
     return dom.hide(progressStepsContainer)
   }
 
   dom.show(progressStepsContainer)
-  progressStepsContainer.textContent = ''
-  const currentProgressStep = parseInt(params.currentProgressStep === undefined ? getQueueStep() : params.currentProgressStep)
+  progressStepsContainer.innerHTML = ''
+  const currentProgressStep = parseInt(params.currentProgressStep === null ? sweetAlert.getQueueStep() : params.currentProgressStep)
   if (currentProgressStep >= params.progressSteps.length) {
     warn(
       'Invalid currentProgressStep parameter, it should be less than progressSteps.length ' +

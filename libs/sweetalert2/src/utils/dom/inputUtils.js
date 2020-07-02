@@ -1,41 +1,10 @@
 import * as dom from './index.js'
 import { swalClasses } from '../classes.js'
 import { getChildByClass } from './domUtils.js'
-import { error, isPromise } from '../utils.js'
-import { showLoading } from '../../staticMethods/showLoading.js'
+import { error, isPromise } from '../utils.js';
+import { showLoading } from '../../staticMethods/showLoading.js';
 
-export const handleInputOptionsAndValue = (instance, params) => {
-  if (params.input === 'select' || params.input === 'radio') {
-    handleInputOptions(instance, params)
-  } else if (['text', 'email', 'number', 'tel', 'textarea'].includes(params.input) && isPromise(params.inputValue)) {
-    handleInputValue(instance, params)
-  }
-}
-
-export const getInputValue = (instance, innerParams) => {
-  const input = instance.getInput()
-  if (!input) {
-    return null
-  }
-  switch (innerParams.input) {
-    case 'checkbox':
-      return getCheckboxValue(input)
-    case 'radio':
-      return getRadioValue(input)
-    case 'file':
-      return getFileValue(input)
-    default:
-      return innerParams.inputAutoTrim ? input.value.trim() : input.value
-  }
-}
-
-const getCheckboxValue = (input) => input.checked ? 1 : 0
-
-const getRadioValue = (input) => input.checked ? input.value : null
-
-const getFileValue = (input) => input.files.length ? (input.getAttribute('multiple') !== null ? input.files : input.files[0]) : null
-
-const handleInputOptions = (instance, params) => {
+export const handleInputOptions = (instance, params) => {
   const content = dom.getContent()
   const processInputOptions = (inputOptions) => populateInputOptions[params.input](content, formatInputOptions(inputOptions), params)
   if (isPromise(params.inputOptions)) {
@@ -51,21 +20,21 @@ const handleInputOptions = (instance, params) => {
   }
 }
 
-const handleInputValue = (instance, params) => {
+export const handleInputValue = (instance, params) => {
   const input = instance.getInput()
   dom.hide(input)
   params.inputValue.then((inputValue) => {
-    input.value = params.input === 'number' ? parseFloat(inputValue) || 0 : `${inputValue}`
+    input.value = params.input === 'number' ? parseFloat(inputValue) || 0 : inputValue + ''
     dom.show(input)
     input.focus()
     instance.hideLoading()
   })
     .catch((err) => {
-      error(`Error in inputValue promise: ${err}`)
+      error('Error in inputValue promise: ' + err)
       input.value = ''
       dom.show(input)
       input.focus()
-      instance.hideLoading()
+      this.hideLoading()
     })
 }
 
@@ -77,7 +46,7 @@ const populateInputOptions = {
       const optionLabel = inputOption[1]
       const option = document.createElement('option')
       option.value = optionValue
-      dom.setInnerHtml(option, optionLabel)
+      option.innerHTML = optionLabel
       if (params.inputValue.toString() === optionValue.toString()) {
         option.selected = true
       }
@@ -100,7 +69,7 @@ const populateInputOptions = {
         radioInput.checked = true
       }
       const label = document.createElement('span')
-      dom.setInnerHtml(label, radioLabel)
+      label.innerHTML = radioLabel
       label.className = swalClasses.label
       radioLabelElement.appendChild(radioInput)
       radioLabelElement.appendChild(label)

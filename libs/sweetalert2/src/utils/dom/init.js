@@ -1,6 +1,6 @@
 import { swalClasses, iconTypes } from '../classes.js'
 import { getContainer, getPopup, getContent } from './getters.js'
-import { addClass, removeClass, getChildByClass, setInnerHtml } from './domUtils.js'
+import { addClass, removeClass, getChildByClass } from './domUtils.js'
 import { isNodeEnv } from '../isNodeEnv.js'
 import { error } from '../utils.js'
 import sweetAlert from '../../sweetalert2.js'
@@ -9,17 +9,24 @@ const sweetHTML = `
  <div aria-labelledby="${swalClasses.title}" aria-describedby="${swalClasses.content}" class="${swalClasses.popup}" tabindex="-1">
    <div class="${swalClasses.header}">
      <ul class="${swalClasses['progress-steps']}"></ul>
-     <div class="${swalClasses.icon} ${iconTypes.error}"></div>
+     <div class="${swalClasses.icon} ${iconTypes.error}">
+       <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span>
+     </div>
      <div class="${swalClasses.icon} ${iconTypes.question}"></div>
      <div class="${swalClasses.icon} ${iconTypes.warning}"></div>
      <div class="${swalClasses.icon} ${iconTypes.info}"></div>
-     <div class="${swalClasses.icon} ${iconTypes.success}"></div>
+     <div class="${swalClasses.icon} ${iconTypes.success}">
+       <div class="swal2-success-circular-line-left"></div>
+       <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
+       <div class="swal2-success-ring"></div> <div class="swal2-success-fix"></div>
+       <div class="swal2-success-circular-line-right"></div>
+     </div>
      <img class="${swalClasses.image}" />
      <h2 class="${swalClasses.title}" id="${swalClasses.title}"></h2>
-     <button type="button" class="${swalClasses.close}"></button>
+     <button type="button" class="${swalClasses.close}">&times;</button>
    </div>
    <div class="${swalClasses.content}">
-     <div id="${swalClasses.content}" class="${swalClasses['html-container']}"></div>
+     <div id="${swalClasses.content}"></div>
      <input class="${swalClasses.input}" />
      <input type="file" class="${swalClasses.file}" />
      <div class="${swalClasses.range}">
@@ -39,9 +46,7 @@ const sweetHTML = `
      <button type="button" class="${swalClasses.confirm}">OK</button>
      <button type="button" class="${swalClasses.cancel}">Cancel</button>
    </div>
-   <div class="${swalClasses.footer}"></div>
-   <div class="${swalClasses['timer-progress-bar-container']}">
-     <div class="${swalClasses['timer-progress-bar']}"></div>
+   <div class="${swalClasses.footer}">
    </div>
  </div>
 `.replace(/(^|\n)\s*/g, '')
@@ -49,7 +54,7 @@ const sweetHTML = `
 const resetOldContainer = () => {
   const oldContainer = getContainer()
   if (!oldContainer) {
-    return false
+    return
   }
 
   oldContainer.parentNode.removeChild(oldContainer)
@@ -61,8 +66,6 @@ const resetOldContainer = () => {
       swalClasses['has-column']
     ]
   )
-
-  return true
 }
 
 let oldInputVal // IE11 workaround, see #1109 for details
@@ -124,7 +127,7 @@ const setupRTL = (targetElement) => {
  */
 export const init = (params) => {
   // Clean up the old popup container if it exists
-  const oldContainerExisted = resetOldContainer()
+  resetOldContainer()
 
   /* istanbul ignore if */
   if (isNodeEnv()) {
@@ -134,10 +137,7 @@ export const init = (params) => {
 
   const container = document.createElement('div')
   container.className = swalClasses.container
-  if (oldContainerExisted) {
-    addClass(container, swalClasses['no-transition'])
-  }
-  setInnerHtml(container, sweetHTML)
+  container.innerHTML = sweetHTML
 
   const targetElement = getTarget(params.target)
   targetElement.appendChild(container)

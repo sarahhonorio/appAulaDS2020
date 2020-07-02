@@ -6,7 +6,6 @@ export {
   getPopup,
   getTitle,
   getContent,
-  getHtmlContainer,
   getImage,
   getIcon,
   getIcons,
@@ -16,7 +15,6 @@ export {
   getCancelButton,
   getHeader,
   getFooter,
-  getTimerProgressBar,
   getFocusableElements,
   getValidationMessage,
   isLoading

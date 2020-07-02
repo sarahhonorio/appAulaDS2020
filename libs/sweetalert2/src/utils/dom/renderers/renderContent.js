@@ -1,9 +1,9 @@
 import { swalClasses } from '../../classes.js'
 import * as dom from '../../dom/index.js'
-import { renderInput } from './renderInput.js'
+import { renderInput } from './renderInput.js';
 
 export const renderContent = (instance, params) => {
-  const content = dom.getContent().querySelector(`#${swalClasses.content}`)
+  const content = dom.getContent().querySelector('#' + swalClasses.content)
 
   // Content as HTML
   if (params.html) {
@@ -23,5 +23,5 @@ export const renderContent = (instance, params) => {
   renderInput(instance, params)
 
   // Custom class
-  dom.applyCustomClass(dom.getContent(), params, 'content')
+  dom.applyCustomClass(dom.getContent(), params.customClass, 'content')
 }

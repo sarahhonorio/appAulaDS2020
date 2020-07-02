@@ -1,7 +1,8 @@
-$(document).ready(function(){
-    $('.categoria').click(function(e){
+$(document).ready(function() {
+
+    $('.categoria').click(function(e) {
         e.preventDefault()
         $('#conteudo').empty()
-        $('#conteudo').lead('src/categorias/visao/list-categoria.html')
+        $('#conteudo').load('src/categorias/visao/list-categoria.html')
     })
 })

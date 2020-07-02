@@ -1,8 +1,4 @@
 <p align="center">
-  <a href="https://github.com/sponsors/limonte">[== Become the :trophy: Ultimate Sponsor of SweetAlert2 and place your banner here (100K+ unique visitors per month!) ==]</a>
-</p>
-
-<p align="center">
   <a href="https://sweetalert2.github.io/">
     <img src="/assets/swal2-logo.png" alt="SweetAlert2">
   </a>
@@ -20,21 +16,26 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/sweetalert2/sweetalert2/actions"><img alt="Build Status" src="https://github.com/sweetalert2/sweetalert2/workflows/build/badge.svg"></a>
-  <a href="https://codeclimate.com/github/sweetalert2/sweetalert2/test_coverage"><img alt="Coverage Status" src="https://api.codeclimate.com/v1/badges/eba34bb80477933854d4/test_coverage"></a>
+  <a href="https://travis-ci.org/sweetalert2/sweetalert2"><img alt="Build Status: Linux" src="https://travis-ci.org/sweetalert2/sweetalert2.svg?branch=master"></a>
+  <a href="https://ci.appveyor.com/project/limonte/sweetalert2/branch/master"><img alt="Build Status: Windows" src="https://ci.appveyor.com/api/projects/status/paqdtx0snu53w5c1/branch/master?svg=true"></a>
+  <a href="https://coveralls.io/github/sweetalert2/sweetalert2?branch=master"><img src="https://coveralls.io/repos/github/sweetalert2/sweetalert2/badge.svg?branch=master&" alt="Coverage Status"></a>
   <a href="https://www.npmjs.com/package/sweetalert2"><img alt="Version" src="https://img.shields.io/npm/v/sweetalert2.svg"></a>
   <a href="https://www.jsdelivr.com/package/npm/sweetalert2"><img alt="jsdelivr" src="https://data.jsdelivr.com/v1/package/npm/sweetalert2/badge?style=rounded"></a>
-  <a href="#support-and-donations"><img alt="Support Donate" src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=ea4aaa"></a>
+  <a href="#support-and-donations"><img alt="Support Donate" src="http://ionicabizau.github.io/badges/paypal.svg"></a>
 </p>
 
 ---
 
-:shipit: The author of SweetAlert2 ([@limonte](https://github.com/limonte/)) is looking for short-term to medium-term working contracts in front-end, preferably OSS.
+:raised_hands: :raised_hands: :raised_hands: Help wanted!
+---------------------------------------------------------
+
+We just started the [`sweetalert2-themes`](https://github.com/sweetalert2/sweetalert2-themes) project, for now 3 themes are available: [`dark`](https://github.com/sweetalert2/sweetalert2-themes/tree/master/dark), [`minimal`](https://github.com/sweetalert2/sweetalert2-themes/tree/master/minimal), and [`borderless`](https://github.com/sweetalert2/sweetalert2-themes/tree/master/borderless). Please help us with [other themes](https://github.com/sweetalert2/sweetalert2-themes/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22), I would be happy to donate some :moneybag: for all active contributors. The quick-start contributing guide is [here](#contributing).
+
+Thank you :heart:
 
 ---
 
-:point_right: **Upgrading from v8.x to v9.x?** [Read the release notes!](https://github.com/sweetalert2/sweetalert2/releases/tag/v9.0.0)
-<br>If you're upgrading from v7.x, please [upgrade from v7 to v8](https://github.com/sweetalert2/sweetalert2/releases/tag/v8.0.0) first!
+:point_right: **Upgrading from v7.x to v8.x?** [Read the release notes!](https://github.com/sweetalert2/sweetalert2/releases/tag/v8.0.0)
 <br>If you're upgrading from v6.x, please [upgrade from v6 to v7](https://github.com/sweetalert2/sweetalert2/releases/tag/v7.0.0) first!
 
 :point_right: **Migrating from [SweetAlert](https://github.com/t4t5/sweetalert)?** [SweetAlert 1.x to SweetAlert2 migration guide](https://github.com/sweetalert2/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2)
@@ -52,7 +53,7 @@ Or grab from [jsdelivr CDN](https://www.jsdelivr.com/package/npm/sweetalert2)
 :
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 ```
 
 
@@ -63,7 +64,7 @@ Usage
 <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
 
 <!-- Include a polyfill for ES6 Promises (optional) for IE11 -->
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill9/dist/polyfill.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 ```
 
 You can also include the stylesheet separately if desired:
@@ -81,16 +82,6 @@ import Swal from 'sweetalert2'
 
 // CommonJS
 const Swal = require('sweetalert2')
-```
-
-Or with JS modules:
-
-```html
-<link rel="stylesheet" href="sweetalert2/dist/sweetalert2.css">
-
-<script type="module">
-  import Swal from 'sweetalert2/src/sweetalert2.js'
-</script>
 ```
 
 It's possible to import JS and CSS separately, e.g. if you need to customize styles:
@@ -125,7 +116,7 @@ Handling the result of SweetAlert2 modal:
 Swal.fire({
   title: 'Are you sure?',
   text: 'You will not be able to recover this imaginary file!',
-  icon: 'warning',
+  type: 'warning',
   showCancelButton: true,
   confirmButtonText: 'Yes, delete it!',
   cancelButtonText: 'No, keep it'
@@ -163,18 +154,6 @@ Browser compatibility
 Note that SweetAlert2 **does not** and **will not** provide support or functionality of any kind on IE10 and lower.
 
 
-
-Themes ([`sweetalert2-themes ↗`](https://github.com/sweetalert2/sweetalert2-themes))
-------
-
-- [`Dark`](https://github.com/sweetalert2/sweetalert2-themes/tree/master/dark)
-- [`Minimal`](https://github.com/sweetalert2/sweetalert2-themes/tree/master/minimal)
-- [`Borderless`](https://github.com/sweetalert2/sweetalert2-themes/tree/master/borderless)
-- [`Bootstrap 4`](https://github.com/sweetalert2/sweetalert2-themes/tree/master/bootstrap-4)
-- [`Material UI`](https://github.com/sweetalert2/sweetalert2-themes/tree/master/material-ui)
-- [`Default`](https://github.com/sweetalert2/sweetalert2-themes/tree/master/default)
-
-
 Related projects
 -------------------------
 
@@ -189,16 +168,14 @@ Related community projects
 
 - [avil13/vue-sweetalert2](https://github.com/avil13/vue-sweetalert2) - Vue.js wrapper
 - [realrashid/sweet-alert](https://github.com/realrashid/sweet-alert) - Laravel 5 Package
-- [Basaingeal/Razor.SweetAlert2](https://github.com/Basaingeal/Razor.SweetAlert2) - Blazor Wrapper
-- [ElectronAlert](https://electron.guide/electron-alert/) - SweetAlert2 for Electron applications (main process)
 
 
 Collaborators
 -------------
 
-[![](https://avatars3.githubusercontent.com/u/17089396?v=4&s=80)](https://github.com/gverni) | [![](https://avatars3.githubusercontent.com/u/3198597?v=4&s=80)](https://github.com/zenflow) | [![](https://avatars1.githubusercontent.com/u/1343250?v=4&s=80)](https://github.com/toverux)
--|-|-
-[@gverni](https://github.com/gverni) | [@zenflow](https://github.com/zenflow) | [@toverux](https://github.com/toverux)
+[![](https://avatars3.githubusercontent.com/u/17089396?v=4&s=80)](https://github.com/gverni) | [![](https://avatars3.githubusercontent.com/u/3198597?v=4&s=80)](https://github.com/zenflow) | [![](https://avatars1.githubusercontent.com/u/1343250?v=4&s=80)](https://github.com/toverux) | [![](https://avatars3.githubusercontent.com/u/9093699?v=4&s=80)](https://github.com/acupajoe) | [![](https://avatars1.githubusercontent.com/u/5918348?v=4&s=80)](https://github.com/samturrell)
+-|-|-|-|-
+[@gverni](https://github.com/gverni) | [@zenflow](https://github.com/zenflow) | [@toverux](https://github.com/toverux) | [@acupajoe](https://github.com/acupajoe) | [@samturrell](https://github.com/samturrell)
 
 
 Contributing
@@ -216,47 +193,30 @@ If you would like to contribute enhancements or fixes, please do the following:
 3. When in the SweetAlert2 directory, run `npm install` or `yarn install` to install dependencies.
 
 4. To begin active development, run `npm start` or `yarn start`. This does several things for you:
+ - Lints your code
  - Builds the `dist` folder
  - Serves sandbox.html @ http://localhost:8080/ (browser-sync ui:  http://localhost:8081/)
- - Re-builds and re-loads as necessary when files change
+ - Serves unit tests @ http://localhost:3000
+ - Re-lints, re-builds, re-loads and re-tests as necessary when files change
 
-Big Thanks
-----------
+Backers
+-------
 
-- [Serena Verni (@serenaperora)](https://serena.verni.xyz) for creating the amazing project logo
-- [Sauce Labs](https://saucelabs.com/) for providing the reliable cross-browser testing platform
-
-Sponsors
---------
-
-[<img src="https://sweetalert2.github.io/images/sponsors/flowcrypt-banner.png">](https://flowcrypt.com/?utm_source=sweetalert2&utm_medium=banner)
-
-[<img src="https://sweetalert2.github.io/images/plus.png" width="80">](SPONSORS.md) | [<img src="https://avatars2.githubusercontent.com/u/28631236?s=80&v=4" width="80">](https://flowcrypt.com/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/wp-reset.png" width="80">](https://wpreset.com/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/sebaebc.png" width="80">](https://github.com/sebaebc)
--|-|-|-
-[Become a sponsor](SPONSORS.md) | [FlowCrypt](https://flowcrypt.com/?utm_source=sweetalert2&utm_medium=logo) | [WP Reset](https://wpreset.com/?utm_source=sweetalert2&utm_medium=logo) | [SebaEBC](https://github.com/sebaebc)
-
-NSFW Sponsors
--------------
-
-[<img src="https://sweetalert2.github.io/images/sponsors/sexualalpha.jpg" width="80">](https://sexualalpha.com/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/sex-toy-education.png" width="80">](https://sextoyeducation.com/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/sextopedia.png" width="80">](https://sextopedia.com/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/my-sex-toy-guide.jpg" width="80">](https://www.mysextoyguide.com/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/best-blowjob-machines.jpg" width="80">](https://www.bestblowjobmachines.com/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/yourdoll.jpg" width="80">](https://www.yourdoll.com/?utm_source=sweetalert2&utm_medium=logo)
--|-|-|-|-|-
-[SexualAlpha](https://sexualalpha.com/?utm_source=sweetalert2&utm_medium=logo) | [STED](https://sextoyeducation.com/?utm_source=sweetalert2&utm_medium=logo) | [Sextopedia](https://sextopedia.com/?utm_source=sweetalert2&utm_medium=logo) | [My Sex Toy Guide](https://www.mysextoyguide.com/?utm_source=sweetalert2&utm_medium=logo) | [Best Blowjob Machines](https://www.bestblowjobmachines.com/?utm_source=sweetalert2&utm_medium=logo) | [YourDoll](https://www.yourdoll.com/?utm_source=sweetalert2&utm_medium=logo)
-
-[<img src="https://sweetalert2.github.io/images/sponsors/celebjihad.png" width="80">](https://celebjihad.io/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/sextoycollective.jpg" width="80">](https://sextoycollective.com/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/bingato.png" width="80">](https://bingato.com/?utm_source=sweetalert2&utm_medium=logo) | [<img src="https://sweetalert2.github.io/images/sponsors/realsexdoll.png" width="80">](https://realsexdoll.com/?utm_source=sweetalert2&utm_medium=logo)| [<img src="https://sweetalert2.github.io/images/sponsors/doctorclimax.png" width="80">](https://doctorclimax.com/)
+[<img src="https://sweetalert2.github.io/images/backers/PriceListo.png" width="80">](https://www.pricelisto.com/) | [![](https://avatars0.githubusercontent.com/u/5826089?v=4&s=80)](https://sheetjs.com/) | [![](https://avatars2.githubusercontent.com/u/12075795?v=4&s=80)](https://www.unique-p.ch) | [<img src="https://sweetalert2.github.io/images/backers/sextoycollective.jpg" width="80">](https://sextoycollective.com/) | [<img src="https://sweetalert2.github.io/images/plus.png" width="80">](DONATIONS.md#backers)
 -|-|-|-|-
-[Celebjihad](https://celebjihad.io/?utm_source=sweetalert2&utm_medium=logo) | [STC](https://sextoycollective.com/?utm_source=sweetalert2&utm_medium=logo) | [Bingato](https://bingato.com/?utm_source=sweetalert2&utm_medium=logo) | [RealSexDoll](https://realsexdoll.com/?utm_source=sweetalert2&utm_medium=logo) | [DoctorClimax](https://doctorclimax.com/)
+[PriceListo](https://www.pricelisto.com/) | [SheetJS LLC](https://sheetjs.com/) | [Unique-P GmbH](https://www.unique-p.ch) | [STC (NSFW)](https://sextoycollective.com/) | [Become a backer](DONATIONS.md#backers)
 
 Support and Donations
 ---------------------
 
 Has SweetAlert2 helped you create an amazing application? You can show your support by making a donation:
 
-- [GitHub Sponsors :heart:](https://github.com/sponsors/limonte)
-- PayPal: [USD (US$)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UW5EA4KTHM4B6) | [EUR (€)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TKTWHJGUWLR7E) | [JPY (¥)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FE4JP23V88G3C) | [GBP (£)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QJ3KEXBUHCL3C) | [AUD (A$)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SG3T6NCCQFYE2) | [CAD (C$)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4SB64A93A7VZ8) | [CHF (CHF)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UGHWAA7MRH7MQ) | [HKD (HK$)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CPZP4SJAFZKAU) | [NZD (NZ$)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F42C5XL3M3JCQ) | [SEK (kr)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GRRZTRQLA4NWL) | [SGD (S$)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=386ALCBUUFXES) | [NOK (kr)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XFPKPQDZWFKAW) | [MXN ($)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WSXP62LE49PPN) | [RUB (₽)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=98BDRFSZAPV3Q) | [BRL (R$)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LYFEH4N33DHQC) | [TWD (NT$)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5HL8BJ97RRANU) | [DKK (kr)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T7RD9MRR3MXTG) | [PLN (zł)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SHAUMPM36UNP6)
-- [PayPal.me](https://www.paypal.me/limonte)
-- Bitcoin: `16Z7RvFv7PsV3XzFvchYwPnRfw9KeLTZQJ`
-- Ether: `0x192096161eB2273f12b1cB4E31aBB09Bfc03a7F3`
-- Bitcoin Cash: `qz28x66hrljtdz3052p8ya3cmkwwva5avy0msz2ej3`
-- Stellar: `GDUM4VJZYDNRHBTKUQBOPC374AP6MMMVOJDMSHIPEJPEMBCY4ZHH6NDY`
+- [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TKTWHJGUWLR7E)
+- Bitcoin: `12BxefvPMtHePgfPRDL1SaZYSG4GwQmWoP`
+- Ether: `0x36e2b10666e2c0dc343901895ba3697b5d3214d1`
+- Bitcoin Cash: `qqxs402qszgwuue00gwxw996lzhpa8up2unqm0y46g`
+- Stellar: `GBRS5KGFJO4OBUGW3TRQBIVXTM5YDS53DOSHGA3LKVE2YXKVKNVDONBP`
+
+Or give the new Brave Browser a try with our referral link: https://brave.com/swe698
 
 ### [Hall of Donators :trophy:](DONATIONS.md)
