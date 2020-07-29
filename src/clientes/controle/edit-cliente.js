@@ -8,13 +8,13 @@ $(document).ready(function() {
 
         $('.modal-title').append('Edição de cliente')
 
-        let idcategoria = `idcliente=${$(this).attr('id')}`
+        let idcliente = `idcliente=${$(this).attr('id')}`
 
         $.ajax({
             type: 'POST',
             dataType: 'JSON',
             assync: true,
-            data: idcategoria,
+            data: idcliente,
             url: 'src/clientes/modelo/view-cliente.php',
             success: function(dado) {
                 if (dado.tipo == "success") {

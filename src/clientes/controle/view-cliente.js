@@ -8,7 +8,7 @@ $(document).ready(function() {
 
         $('.modal-title').append('Visualização de cliente')
 
-        let idcategoria = `idcliente=${$(this).attr('id')}`
+        let idcliente = `idcliente=${$(this).attr('id')}`
 
         $.ajax({
             type: 'POST',

@@ -9,7 +9,7 @@ $(document).ready(function() {
 
         const datacriacao = new Date().toLocaleString()
 
-        $('.modal-body').load('src/cclientes/visao/form-cliente.html', function() {
+        $('.modal-body').load('src/clientes/visao/form-cliente.html', function() {
             $('#dataagora').val(datacriacao)
         })
 

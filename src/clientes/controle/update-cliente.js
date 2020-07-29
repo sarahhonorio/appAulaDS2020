@@ -19,7 +19,7 @@ $(document).ready(function() {
             dataType: 'json',
             assync: true,
             data: dados,
-            url: 'src/clientess/modelo/update-cliente.php',
+            url: 'src/clientes/modelo/update-cliente.php',
             success: function(dados) {
                 Swal.fire({
                     title: 'appAulaDS',
