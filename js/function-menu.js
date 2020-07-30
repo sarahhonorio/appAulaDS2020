@@ -4,5 +4,6 @@ $(document).ready(function() {
         e.preventDefault()
         $('#conteudo').empty()
         $('#conteudo').load('src/categorias/visao/list-categoria.html')
+        $('#conteudo').load('src/clientes/visao/list-cliente.html')
     })
 })
